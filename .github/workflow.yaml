@@ -1,0 +1,30 @@
+
+name: Node.js Package
+on:
+  release:
+    types: [created]
+  push:
+    branches: [master]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+        registry-url: 'https://npm.pkg.github.com'
+        # Defaults to the user or organization that owns the workflow file
+        scope: '@docebo'
+    - run: npm install
+    - run: yarn tsc -d
+    - run: npm run build
+    - name: Action For Semantic Release
+      uses: cycjimmy/semantic-release-action@v2.4.1
+      with:
+        extra_plugins: |
+          @semantic-release/changelog
+          @semantic-release/git
+      env:
+        GITHUB_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
