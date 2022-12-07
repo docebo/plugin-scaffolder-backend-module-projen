@@ -24,7 +24,7 @@ export function createRunProjenAction() {
 
 const runShellCommand = async (cmd: string) =>
   new Promise((resolve, reject) => {
-    exec(cmd, (error, stdout, stderr) => {
+    exec(cmd, { maxBuffer: 1024 * 500 }, (error, stdout, stderr) => {
       error ? reject(error) : resolve(stdout? stdout : stderr);
     });
   });
