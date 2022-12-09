@@ -8,8 +8,8 @@ export function createRunProjenAction() {
     async handler(ctx) {
       try {
         ctx.input.projectType
-          ? await runShellCommand(`npx projen@latest new ${ctx.input.projectType} --package-manager NPM --outdir "${ctx.workspacePath}"`)
-          : await runShellCommand(`cd "${ctx.workspacePath}" && npm i ts-node@latest && npx projen@latest`);
+          ? await runShellCommand(`npm i -g projen@latest && npx projen new ${ctx.input.projectType} --package-manager NPM --outdir "${ctx.workspacePath}"`)
+          : await runShellCommand(`cd "${ctx.workspacePath}" && npm i ts-node@latest && npx projen`);
       } catch (e) {
         ctx.logger.error(e);
       }
