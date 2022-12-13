@@ -146,7 +146,7 @@ spec:
 
 You can also visit the `/create/actions` route in your Backstage application to find out more about the parameters this action accepts when it's installed to configure how you like.
 
-### Yeoman Generators setup
+### Projen Generators setup
 
 Projen should be installed a dependency of your `backstage/packages/backend` in `package.json`
 
